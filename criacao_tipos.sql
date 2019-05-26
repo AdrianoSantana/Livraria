@@ -1,3 +1,18 @@
+DROP TYPE TP_Cliente Force;
+DROP TYPE TP_Compra FORCE;
+DROP TYPE TP_Curriculo FORCE;
+DROP TYPE TP_Dependente FORCE;
+DROP TYPE TP_Editora FORCE;
+DROP TYPE TP_Empregado FORCE;
+DROP TYPE TP_End FORCE;
+DROP TYPE TP_Garantia FORCE;
+DROP TYPE TP_Livro FORCE;
+DROP TYPE TP_Pessoa FORCE;
+DROP TYPE TP_Tel_Pessoa FORCE;
+DROP TYPE TP_Tel_Editora FORCE;
+
+
+
 CREATE OR REPLACE TYPE TP_End AS OBJECT (
 
 	cep VARCHAR2(10),
@@ -18,14 +33,14 @@ create or replace type TP_Curriculo as object (
 create or replace type TP_Pessoa as object (
 
         cpf VARCHAR2(9),
-        nome Varchar2(50) NOT NULL,
+        nome Varchar2(50),
         endereco  TP_End 
 
 
 ) NOT FINAL;
 /
 
-create or replace type TP_Tel_Editora as object(
+create or replace type TP_Tel_Pessoa as object(
 
         ref_cpf REF TP_Pessoa,
         telefone_editora VARCHAR2(50)
@@ -64,7 +79,7 @@ create or replace type TP_Empregado UNDER TP_Pessoa(
 create or replace type TP_Editora as object (
 
         cnpj VARCHAR2(50),
-        nome VARCHAR2(50),
+        nome VARCHAR2(50)
 
 
 )FINAL;
@@ -91,8 +106,8 @@ create or replace type TP_Livro as object (
 create or replace type TP_Garantia as object (
 
         id_garantia NUMBER,
-        tempo_garantia NUMBER NOT NULL,
-        data_garantia DATE NOT NULL,
+        tempo_garantia NUMBER ,
+        data_garantia DATE ,
         ref_id_livro REF TP_Livro
 
 )FINAL;
