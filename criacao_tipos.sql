@@ -43,7 +43,7 @@ create or replace type TP_Pessoa as object (
 create or replace type TP_Tel_Pessoa as object(
 
         ref_cpf REF TP_Pessoa,
-        telefone_editora VARCHAR2(50)
+        telefone_pessoa VARCHAR2(50)
 
 ) FINAL;
 /
