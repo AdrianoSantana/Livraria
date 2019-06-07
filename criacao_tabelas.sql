@@ -20,15 +20,16 @@ CREATE TABLE TB_Cliente of TP_Cliente (
 
         PRIMARY KEY(cpf_cliente)
 
-);
+)NESTED TABLE telefone_pessoa STORE AS TB_telefone_Cliente;
 /
 
 CREATE TABLE TB_Empregado of TP_Empregado (
 
         PRIMARY KEY(cpf_empregado),
-        FOREIGN KEY(ref_chefe) REFERENCES TB_Empregado
+        FOREIGN KEY(ref_chefe) REFERENCES TB_Empregado,
+        FOREIGN KEY(ref_curriculo_emp) REFERENCES TB_Curriculo
 
-);
+) NESTED TABLE telefone_pessoa STORE AS TB_telefone_Empregado;
 /
 
 CREATE TABLE TB_Dependente of TP_Dependente (
@@ -43,7 +44,7 @@ CREATE TABLE TB_Editora of TP_Editora (
 
     PRIMARY KEY(cnpj)
 
-);
+)NESTED TABLE telefone_editora STORE AS TB_telefone_Editora;
 /
 
 CREATE TABLE TB_Livro of TP_Livro (

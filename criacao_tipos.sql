@@ -7,14 +7,19 @@ DROP TYPE TP_Empregado FORCE;
 DROP TYPE TP_End FORCE;
 DROP TYPE TP_Garantia FORCE;
 DROP TYPE TP_Livro FORCE;
+DROP TYPE TP_Fone FORCE;
 DROP TYPE TP_Tel FORCE;
 DROP TYPE TP_Pessoa FORCE;
 
-create or replace type TP_Tel as object(
+
+create or replace type TP_Fone as object(
 
         telefone VARCHAR2(50)
 
 ) FINAL;
+/
+
+create or replace type TP_Tel as TABLE of TP_Fone;
 /
 
 
@@ -60,7 +65,7 @@ create or replace type TP_Empregado UNDER TP_Pessoa(
             cpf_empregado VARCHAR2(9),
             salario number,
             data_de_contratacao DATE,
-            curriculo_emp TP_Curriculo,
+            ref_curriculo_emp REF TP_Curriculo,
             ref_chefe REF TP_Empregado
 )FINAL;
 /
