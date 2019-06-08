@@ -2,21 +2,26 @@
 
 
 -- 1. Criação de tipo e subtipo - Marton
+-- 2. Criação de um tipo que contenha um atributo que seja de um outro tipo - Marton
 
 CREATE OR REPLACE TYPE tp_Periodico AS OBJECT (
-	nome			VARCHAR2(200),
-	edicao			NUMBER,
+	nome		VARCHAR2(200),
+	edicao		NUMBER,
 	dt_lancamento	DATE
 ) NOT FINAL;
 
 CREATE OR REPLACE TYPE tp_Revista UNDER tp_Periodico (
-	editora			VARCHAR2(200),
-	conteudo		VARCHAR2(200)
+	editora		VARCHAR2(200),
+	tel_editora     TP_Fone,
+	conteudo	VARCHAR2(200)
 ) FINAL;
 
 
--- 2. Criação de um tipo que contenha um atributo que seja de um outro tipo
--- 3. Criação de um tipo que contenha um atributo que seja de um tipo VARRAY
+-- 3. Criação de um tipo que contenha um atributo que seja de um tipo VARRAY - Marton
+
+CREATE OR REPLACE TYPE tp_va_Periodicos AS VARRAY(5) OF tp_Periodico;
+
+
 -- 4. Criação de um tipo que contenha um atributo que seja de um tipo NESTED TABLE
 -- 5. Criação e chamada de um método construtor (diferente do padrão)
 -- 6. Criação e chamada de um função membro em um comando SELECT e em um bloco PL
@@ -37,10 +42,10 @@ CREATE OR REPLACE TYPE tp_Revista UNDER tp_Periodico (
 -- 21. Criação de uma consulta com VALUE
 -- 22. Criação de uma consulta com TABLE
 -- 23. Criação de consultas com LIKE, BETWEEN, ORDER BY, GROUP BY, HAVING
--- 24. Criação de subconsultas com IN , ALL, ANY,
+-- 24. Criação de subconsultas com IN , ALL, ANY
 -- 25. Criação de uma consulta que exiba os dados de um VARRAY
 -- 26. Criação de uma consulta que exiba os dados de um NESTED TABLE
 -- 27. SELECT para acessar os dados de uma tabela A utilizando uma tabela B dentro da cláusula EXISTS, onde a tabela A tem uma referencia para a tabela B.
--- 28. Criação de TRIGGER de linha ao ocorrer um INSERT, DELETEou UPDATE
--- 29. Criação de TRIGGER de linha para impedir INSERT, DELETEou UPDATE
--- 30. Criação de TRIGGER de comando para impedir INSERT, DELETEou UPDATE
+-- 28. Criação de TRIGGER de linha ao ocorrer um INSERT, DELETE ou UPDATE
+-- 29. Criação de TRIGGER de linha para impedir INSERT, DELETE ou UPDATE
+-- 30. Criação de TRIGGER de comando para impedir INSERT, DELETE ou UPDATE
