@@ -77,7 +77,7 @@ INSERT INTO TB_Empregado VALUES
 );
 
 INSERT INTO TB_Empregado VALUES
-('Nome 4',TP_End('04030','RUA E'),TP_Tel(TP_Fone('900005555')),'444444444',3500,to_date ('01/07/2018', 'dd/mm/yyyy'), 
+('Nome 5',TP_End('04030','RUA E'),TP_Tel(TP_Fone('900005555')),'444444444',3500,to_date ('01/07/2018', 'dd/mm/yyyy'), 
 (select ref(c) from TB_Curriculo c where c.curriculo_id = '014'),
 (select ref(b) from TB_Empregado b where b.cpf_empregado = '000000000')
 );
