@@ -7,13 +7,13 @@ INSERT INTO TB_Editora
 VALUES ('222000','Editora 2',TP_Tel(TP_Fone('981251425')));
 
 INSERT INTO TB_Editora 
-VALUES ('444000','Editora 2',TP_Tel(TP_Fone('975892234')));
+VALUES ('444000','Editora 3',TP_Tel(TP_Fone('975892234')));
 
 INSERT INTO TB_Editora 
-VALUES ('555000','Editora 2',TP_Tel(TP_Fone('981818181')));
+VALUES ('555000','Editora 4',TP_Tel(TP_Fone('981818181')));
 
 INSERT INTO TB_Editora 
-VALUES ('333000','Editora 2',TP_Tel(TP_Fone('981818181'), TP_Fone('991919191')));
+VALUES ('333000','Editora 5',TP_Tel(TP_Fone('981818181'), TP_Fone('991919191')));
 
 -------------------------------------------------- Curriculo -----------------------------------------------------
 
