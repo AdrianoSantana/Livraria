@@ -22,9 +22,31 @@ CREATE OR REPLACE TYPE tp_Revista UNDER tp_Periodico (
 CREATE OR REPLACE TYPE tp_va_Periodicos AS VARRAY(5) OF tp_Periodico;
 
 
--- 4. Criação de um tipo que contenha um atributo que seja de um tipo NESTED TABLE
--- 5. Criação e chamada de um método construtor (diferente do padrão)
--- 6. Criação e chamada de um função membro em um comando SELECT e em um bloco PL
+-- 4. Criação de um tipo que contenha um atributo que seja de um tipo NESTED TABLE - ADRIANO
+-- P.S ESTE TIPO FOI CRIADO NA TABELA DE CRIACAO de TIPOS
+create or replace type TP_Fone as object(
+
+        telefone VARCHAR2(50)
+
+) FINAL;
+/
+
+create or replace type TP_Tel as TABLE of TP_Fone;
+/
+
+-- 5. Criação e chamada de um método construtor (diferente do padrão) - Adriano
+DROP TP_Curriculo FORCE;
+
+create or replace type TP_Curriculo as object (
+
+    curriculo_id number,
+    historico VARCHAR2(50),
+    escolaridade VARCHAR2(50),
+    CONSTRUCTOR FUNCTION TP_Curriculo (id_curr number) RETURN SELF AS RESULT
+ 
+)FINAL;
+/
+-- 6. Criação e chamada de um função membro em um comando SELECT e em um bloco PL 
 -- 7. Criação e chamada de um método MAP em um comando SELECT e em um bloco PL
 -- 8. Criação e chamada de um método ORDER em um comando SELECT e em um bloco PL
 -- 9. Criação e chamada de método abstrato
