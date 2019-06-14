@@ -69,11 +69,17 @@ ALTER TYPE TP_Livro DROP ATTRIBUTE (genero) CASCADE;
 -- 16. Uso de referência e controle de integridade referencial
 -- 17. Restrição de escopo de referência
 -- 18. Criação de todas as tabela a partir de um tipo
--- 19. Criação de uma consulta com expressão de caminho parapercorrer três tabelas
--- 20. Criação de uma consulta com DEREF
--- 21. Criação de uma consulta com VALUE
+
+-- 19. Criação de uma consulta com expressão de caminho parapercorrer três tabelas - ADRIANO
+-- não possuímos 3 tabelas aninhados com ref então usamos apenas 2
+SELECT distinct c.ref_cpf_empregado.ref_curriculo_emp.curriculo_id from TB_Compra c;
+-- 20  Criação de uma consulta com DEREF E USO DE LIKE , BETWEEN E ORDER BY - ADRIANO
+-- seleciona o objeto referenciado por ref_cnpj que é editora e atendem as restrições.
+SELECT DEREF(l.ref_cnpj) from TB_Livro l where ((l.nome like 'Li%') and (l.id_livro BETWEEN 0200 and 0400)) ORDER BY l.id_livro;
+-- 21. Criação de uma consulta com VALUE - ADRIANO
+SELECT VALUE(D) from TB_Dependente D;
 -- 22. Criação de uma consulta com TABLE
--- 23. Criação de consultas com LIKE, BETWEEN, ORDER BY, GROUP BY, HAVING
+-- 23. Criação de consultas com  GROUP BY HAVING
 -- 24. Criação de subconsultas com IN , ALL, ANY
 -- 25. Criação de uma consulta que exiba os dados de um VARRAY
 -- 26. Criação de uma consulta que exiba os dados de um NESTED TABLE
@@ -81,3 +87,7 @@ ALTER TYPE TP_Livro DROP ATTRIBUTE (genero) CASCADE;
 -- 28. Criação de TRIGGER de linha ao ocorrer um INSERT, DELETE ou UPDATE
 -- 29. Criação de TRIGGER de linha para impedir INSERT, DELETE ou UPDATE
 -- 30. Criação de TRIGGER de comando para impedir INSERT, DELETE ou UPDATE
+
+
+---------------- FEITAS ------------------------------
+-- 1 ,  2 , 3 , 4 , 5 , 11 , 12 , 13 , 19 , 20 , 21
