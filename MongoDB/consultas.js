@@ -98,7 +98,7 @@ db.telefones.aggregate([
     $lookup:
     {
       from: "clientes",
-      localField: "nome",
+      localField: "_id",
       foreignField: "telefone_id",
       as: "resultado"
     }
