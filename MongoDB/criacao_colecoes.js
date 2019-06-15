@@ -38,12 +38,27 @@ db.funcionarios.insert({
 
 db.funcionarios.insert({
     nome: "Josiane",
-    salario: 2500,
+    salario: 2200,
     escolaridade: "superior",
     cpf: 00000000004
 }
 );
 
+db.funcionarios.insert({
+    nome: "Esmeralda",
+    salario: 3400,
+    escolaridade: "superior",
+    cpf: 00000000005
+}
+);
+
+db.funcionarios.insert({
+    nome: "Ernesto",
+    salario: 2600,
+    escolaridade: "superior",
+    cpf: "00000000006" //string, para realizar a consulta 11
+}
+);
 
 
 // TELEFONES
