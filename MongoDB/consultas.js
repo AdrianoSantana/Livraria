@@ -1,7 +1,7 @@
 // CONSULTAS
 
 
-// 1. Uma consulta de atualização utilizando o valor prévio do campo
+// 1. Uma consulta de atualização utilizando o valor prévio do campo - Marton
 
 db.funcionarios.update( {salario: 2500}, {$set: {salario: 2700}});
 
@@ -80,5 +80,16 @@ db.funcionarios.mapReduce(
 
 
 // 13. Uma consulta de agregação
+
+db.funcionarios.aggregate([
+  { $group:
+    {
+      _id: "$salario",
+      quantidade: { $sum: -1 }
+    }
+  }
+]);
+
+
 // 14. Uma junção de tabela com unwind
 // 15. Uma consulta utilizando todos os itens de 4 a 14 (exceto o 12)  
