@@ -1,5 +1,6 @@
 # Livraria
-Projeto da segunda unidade da disciplina de GDI 2019.1 do curso de EC, CIn/UFPE
+Projeto da segunda unidade da disciplina de GDI 2019.1 do curso de EC, CIn/UFPE.
+Site da monitoria: clique [aqui](https://sites.google.com/a/cin.ufpe.br/if685ec/material).
 
 ## C++
 - [x] Conectividade
@@ -13,6 +14,3 @@ Projeto da segunda unidade da disciplina de GDI 2019.1 do curso de EC, CIn/UFPE
 ## MongoDB
 - [x] Criação de Coleções
 - [ ] Consultas (falta a 15)
-
-## Site da monitoria
-Clique [aqui](https://sites.google.com/a/cin.ufpe.br/if685ec/material).
