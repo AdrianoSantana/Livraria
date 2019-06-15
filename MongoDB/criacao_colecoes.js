@@ -1,126 +1,189 @@
-db.funcionarios.insert({
+// CRIACAO DE COLECOES
 
-    nome : "Empregado 1",
-    salario : 1500,
-    escolaridade : "Fundamental",
-    cpf: 000000000
-}
-);
+
+
+// FUNCIONARIOS
 
 db.funcionarios.insert({
-
-    nome : "Empregado 2",
-    salario : 2000,
-    escolaridade : "médio",
-    cpf: 000000001
+    nome: "Eliomar",
+    salario: 1500,
+    escolaridade: "fundamental",
+    cpf: 00000000000
 }
 );
 
 db.funcionarios.insert({
-
-    nome : "Empregado 3",
-    salario : 1500,
-    escolaridade : "médio",
-    cpf: 000000002
+    nome: "Elenildo",
+    salario: 2000,
+    escolaridade: "medio",
+    cpf: 00000000001
 }
 );
 
 db.funcionarios.insert({
-
-    nome : "Empregado 4",
-    salario : 3000,
-    escolaridade : "médio",
-    cpf: 000000003
+    nome: "Alberto",
+    salario: 1500,
+    escolaridade: "medio",
+    cpf: 00000000002
 }
 );
 
 db.funcionarios.insert({
+    nome: "Marilza",
+    salario: 3000,
+    escolaridade: "medio",
+    cpf: 00000000003
+}
+);
 
-    nome : "Empregado 5",
-    salario : 2500,
-    escolaridade : "Superior",
-    cpf: 000000004
+db.funcionarios.insert({
+    nome: "Josiane",
+    salario: 2500,
+    escolaridade: "superior",
+    cpf: 00000000004
+}
+);
+
+
+
+// TELEFONES
+
+db.telefones.insert({
+    _id: "jose",
+    numero: 993429243
+}
+);
+
+db.telefones.insert({
+    _id: "marina",
+    numero: 982310999
+}
+);
+
+db.telefones.insert({
+    _id: "elen",
+    numero: 973424455
+}
+);
+
+
+
+// CLIENTES + RELACIONAMENTOS POR REFERENCIA + RELACIONAMENTOS POR DOCUMENTO EMBUTIDO
+
+db.clientes.insert({
+    nome: "José",
+    cpf: 111111111,
+    sexo: 'M',
+    telefone_id: "jose",
+    enderecos: [
+        {
+            logradouro: "Avenida Coqueiros 45",
+            cidade: "Recife",
+            estado: "PE"
+        }
+    ]
 }
 );
 
 db.clientes.insert({
-
-    nome : "José",
-    cpf : 111111111,
-    sexo : 'M',
-    telefones : [991929394,999999999]
-
+    nome: "João",
+    cpf: 222222222,
+    sexo: 'M',
+    enderecos: [
+        {
+            logradouro: "Avenida do Bananal 903",
+            cidade: "Recife",
+            estado: "PE"
+        },
+        {
+            logradouro: "Rua Amarildo Jose 245",
+            cidade: "Santos",
+            estado: "SP"
+        }
+    ]
 }
 );
 
 db.clientes.insert({
-
-    nome : "João",
-    cpf : 222222222,
-    sexo : 'M',
-    telefones : [900000000,911111111]
-
+    nome: "Caio",
+    cpf: 333333333,
+    sexo: 'M',
+    telefone_id: "marina",
+    enderecos: [
+        {
+            logradouro: "Avenida Coqueiros 340",
+            cidade: "Recife",
+            estado: "PE"
+        }
+    ]
 }
 );
 
 db.clientes.insert({
-
-    nome : "Caio",
-    cpf : 333333333,
-    sexo : 'M',
-    telefones : [922222222]
-
+    nome: "Elen",
+    cpf: 444444444,
+    sexo: 'F',
+    telefone_id: "elen",
+    enderecos: [
+        {
+            logradouro: "Avenida Doutor Rufino 34",
+            cidade: "Jaboatao",
+            estado: "PE"
+        },
+        {
+            logradouro: "Avenida da Cidade 90",
+            cidade: "Olinda",
+            estado: "PE"
+        }
+    ]
 }
 );
 
 db.clientes.insert({
-
-    nome : "Elen",
-    cpf : 444444444,
-    sexo : 'F',
-    telefones : [944444444,933333333]
-
+    nome: "Marina",
+    cpf: 555555555,
+    sexo: 'F',
+    telefone_id: "marina",
+    enderecos: [
+        {
+            logradouro: "Avenida Coqueiros 340",
+            cidade: "Recife",
+            estado: "PE"
+        },
+        {
+            logradouro: "Rua Amarela 340",
+            cidade: "Olinda",
+            estado: "PE"
+        }
+    ]
 }
 );
 
-db.clientes.insert({
 
-    nome : "Marina",
-    cpf : 555555555,
-    sexo : 'F',
-    telefones : [955555555]
 
-}
-);
+// LIVROS
 
 db.livros.insert({
-    nome : "Cálculo I",
-    valor : 55,
-    id_livro : 1
+    nome: "Cálculo I",
+    valor: 55
 });
 
 db.livros.insert({
-    nome : "Servomecanismos",
-    valor : 40,
-    id_livro : 2
+    nome: "Servomecanismos",
+    valor: 40
 });
 
 db.livros.insert({
-    nome : "Dom Quixote",
-    valor : 20,
-    id_livro : 3
+    nome: "Dom Quixote",
+    valor: 20
 });
 
 db.livros.insert({
-    nome : "Harry Potter",
-    valor : 40,
-    id_livro : 4
-
+    nome: "Harry Potter",
+    valor: 40
 });
 
 db.livros.insert({
-    nome : "A Divina Comédia",
-    valor : 45,
-    id_livro : 5
-
+    nome: "A Divina Comédia",
+    valor: 45
 });
