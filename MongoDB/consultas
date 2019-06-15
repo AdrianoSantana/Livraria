@@ -35,10 +35,12 @@ db.funcionarios.updateMany(
 )
 
 
-6. Uma consulta com projeção
+6. Uma consulta com projeção - Marton
+
+db.funcionarios.find({}, {nome: 1, salario: 1, _id: 0})
 
 
-7. Uma consulta limitando a quantidade de documentos retornados
+7. Uma consulta limitando a quantidade de documentos retornados - Marton
 
 db.funcionarios.find({nome: /^E/}).limit(3)
 
@@ -50,12 +52,20 @@ db.funcionarios.find().sort({salario:-1}).pretty()
 
 9. Uma consulta utilizando operadores lógicos - Marton
 
-db.funcionarios.find( {$or: [{salario: 2500}, {CPF: 000000001}]} )
+db.funcionarios.find( {$or: [{salario: 2500}, {CPF: 000000001}]} ).pretty()
 
 
-10. Uma consulta com o operador $exists
-11. Uma consulta com o operador $type
+10. Uma consulta com o operador $exists - Marton
+
+db.clientes.find( {sexo: { $exists: true }}).pretty()
+
+
+11. Uma consulta com o operador $type - Marton
+
+db.funcionarios.find( {"CPF" : {$type: "number"}} ).pretty()
+
+
 12. Uma consulta utilizando MapReduce
 13. Uma consulta de agregação
 14. Uma junção de tabela com unwind
-15. Uma consulta utilizando todos os itens de 4 a 14 (exceto o 12)
+15. Uma consulta utilizando todos os itens de 4 a 14 (exceto o 12)  
