@@ -10,6 +10,7 @@ DROP TYPE TP_Livro FORCE;
 DROP TYPE TP_Fone FORCE;
 DROP TYPE TP_Tel FORCE;
 DROP TYPE TP_Pessoa FORCE;
+DROP TYPE TP_Redes FORCE;
 
 
 create or replace type TP_Fone as object(
@@ -17,6 +18,9 @@ create or replace type TP_Fone as object(
         telefone VARCHAR2(50)
 
 ) FINAL;
+/
+
+create or replace type TP_Redes as varray(3) of Varchar2(30);
 /
 
 create or replace type TP_Tel as TABLE of TP_Fone;
@@ -39,6 +43,7 @@ create or replace type TP_Curriculo as object (
 
 )FINAL;
 /
+
 
 create or replace type TP_Pessoa as object (
 
@@ -76,11 +81,14 @@ create or replace type TP_Dependente as object(
         cpf_titular VARCHAR2(9),
         ref_cpf_titular REF TP_Cliente,
         nome_dependente VARCHAR2(50),
-        idade_dependente number
+        idade_dependente INTEGER,
+        redes_sociais TP_Redes
+
 
 
 )FINAL;
 /
+
 
 create or replace type TP_Editora as object (
 
@@ -108,10 +116,21 @@ create or replace type TP_Garantia as object (
         id_garantia NUMBER,
         tempo_garantia NUMBER ,
         data_garantia DATE ,
-        ref_id_livro REF TP_Livro
+        ref_id_livro REF TP_Livro,
+        MEMBER FUNCTION extend_tempo (val NUMBER) RETURN NUMBER
 
 )FINAL;
 /
+
+CREATE or replace type BODY TP_Garantia IS
+MEMBER FUNCTION extend_tempo(val NUMBER) RETURN NUMBER IS
+begin
+    RETURN self.tempo_garantia + val;
+end;
+
+END;
+/
+
 
 create or replace type TP_Compra as object (
         cpf_compra_cliente Varchar2(9),

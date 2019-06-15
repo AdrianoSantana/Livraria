@@ -103,23 +103,23 @@ INSERT INTO TB_Cliente VALUES
 
 INSERT INTO TB_Dependente 
 VALUES ('000001111','999999999',(select ref(c) from TB_Cliente c where c.cpf_cliente = '999999999'),
-'Dependente 1',12);
+'Dependente 1',12, TP_Redes('Facebook','Instagram','Twiiter'));
 
 INSERT INTO TB_Dependente 
 VALUES ('000002222','888888888',(select ref(c) from TB_Cliente c where c.cpf_cliente = '888888888'),
-'Dependente 2',15);
+'Dependente 2',15,TP_Redes('Facebook','Instagram'));
 
 INSERT INTO TB_Dependente 
 VALUES ('000003333','777777777',(select ref(c) from TB_Cliente c where c.cpf_cliente = '777777777'),
-'Dependente 3',11);
+'Dependente 3',11,TP_Redes('Facebook','Instagram','Twiiter'));
 
 INSERT INTO TB_Dependente 
 VALUES ('000004444','666666666',(select ref(c) from TB_Cliente c where c.cpf_cliente = '666666666'),
-'Dependente 4',14);
+'Dependente 4',14,TP_Redes('Facebook','Twiiter'));
 
 INSERT INTO TB_Dependente 
 VALUES ('000005555','555555555',(select ref(c) from TB_Cliente c where c.cpf_cliente = '555555555'),
-'Dependente 5',13);
+'Dependente 5',13,TP_Redes('Facebook'));
 
 
 ---------------------------------------- Compra ---------------------------------------------------------
