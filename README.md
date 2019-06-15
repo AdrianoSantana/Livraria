@@ -1,6 +1,9 @@
 # Livraria
 Projeto da segunda unidade da disciplina de GDI 2019.1 do curso de EC, CIn/UFPE
 
+## C++
+- [x] Conectividade
+
 ## SQLOR
 - [x] Criação de Tipos
 - [x] Criação de Tabelas
