@@ -6,7 +6,7 @@ Site da monitoria: clique [aqui](https://sites.google.com/a/cin.ufpe.br/if685ec/
 ## C++
 - [x] Conectividade
 
-## SQLOR
+## SQL (OR)
 - [x] Criação de Tipos
 - [x] Criação de Tabelas
 - [x] Povoamento do Banco
