@@ -14,4 +14,4 @@ Site da monitoria: clique [aqui](https://sites.google.com/a/cin.ufpe.br/if685ec/
 
 ## MongoDB
 - [x] Criação de Coleções
-- [ ] Consultas (falta a 15)
+- [x] Consultas
