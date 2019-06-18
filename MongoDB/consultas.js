@@ -114,3 +114,48 @@ db.telefones.aggregate([
 
 
 // 15. Uma consulta utilizando todos os itens de 4 a 14 (exceto o 12)  
+
+db.telefones.aggregate([
+  {
+	$lookup:
+	{
+	  from: "clientes",
+	  localField: "_id",
+	  foreignField: "telefone_id",
+	  as: "resultado"
+	}
+  },
+  {
+	$unwind:
+	{
+	  path: "$resultado",
+	  preserveNullAndEmptyArrays: false
+	}
+  },
+  {
+	$match:
+	{
+		$and: [
+			{numero: {$exists: true}},
+			{"numero" : {$type: "number"}},
+			{number: {$ne: 0}},
+			{$or: [
+			  {_id: /^m/},
+			  {_id: /^j/}
+			]}
+		]
+	}
+  },
+  {
+	  $project:
+	  {
+		  "resultado": {"_id": 0, "telefone_id": 0}
+	  }
+  },
+  {
+	  $limit : 5
+  },
+  {
+	  $sort : { resultado : 1}
+  }
+]).pretty();
