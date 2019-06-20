@@ -46,7 +46,7 @@ create or replace type TP_Curriculo as object (
  
 )FINAL;
 /
--- 6. Criação e chamada de um função membro em um comando SELECT e em um bloco PL
+-- 6. Criação e chamada de um função membro em um comando SELECT e em um bloco PL - Adriano
 -- O Tipo garantia possuim um member function chamado tempo_ext
 DECLARE
 val NUMBER := 10;
@@ -59,17 +59,44 @@ DBMS_OUTPUT.PUT_LINE(tempo_ext);
 END;
 /
 
+-- 7. Criação e chamada de um método MAP em um comando SELECT e em um bloco PL - Adriano
+-- o metodo map foi criado no tipo TP_curriculo, esta no script de criação
 
+select x.mapeia() from TB_Curriculo x;
 
--- 7. Criação e chamada de um método MAP em um comando SELECT e em um bloco PL
--- 8. Criação e chamada de um método ORDER em um comando SELECT e em um bloco PL
+-- 8. Criação e chamada de um método ORDER em um comando SELECT e em um bloco PL - Adriano
+-- O método order foi criado no tipo dependente
 
--- 9. Criação e chamada de método abstrato
+declare
+resp integer;
+x TP_Dependente;
 
+begin
 
--- 10. Redefinição de método do supertipo dentro do subtipo
+x.idade_dependente := 12;
 
--- 11. Alteração de tipo: adição de atributo - ADRIANO
+select g.compara_idade(x) INTO resp from TB_Dependente g where g.cpf_dependente = '000002222';
+dbms_output.put_line('VALOR : ' || resp);
+
+end;
+/
+
+-- 9 e 10. Criação e chamada de método abstrato - Adriano
+-- FOI CRIADO EM TP_Pessoa o member function abstrato e sobreescrito em seus subtipos empregado e cliente
+-- um bloco pl de chamada pode ser visto abaixo
+declare
+resp number;
+
+begin  
+
+select x.abstrato(10) into resp from TB_Empregado x where x.cpf_empregado = '000000000';
+dbms_output.put_line(resp);
+
+end;
+/
+o
+
+-- 11. Alteração de tipo: adição de atributo e 14. Alteração de supertipo com propagação de mudança - ADRIANO
 --- Foi criado um atributo genero ao tipo livro
 ALTER TYPE TP_Livro ADD ATTRIBUTE (genero Varchar2(50)) cascade;
 
@@ -81,11 +108,28 @@ ALTER TYPE TP_Livro MODIFY ATTRIBUTE genero Varchar2(10);
 -- Atributo genero foi remoido
 ALTER TYPE TP_Livro DROP ATTRIBUTE (genero) CASCADE;
 
--- 14. Alteração de supertipo com propagação de mudança
--- 15. Alteração de supertipo com invalidação de subtipos afetados
--- 16. Uso de referência e controle de integridade referencial
--- 17. Restrição de escopo de referência
+-- 14. Alteração de supertipo com propagação de mudança - Alex
+-- ALTER TYPE TP_Garantia DROP ATTRIBUTE data_garantia CASCADE;
+
+-- 15. Alteração de supertipo com invalidação de subtipos afetados - Alex
+ALTER TYPE TP_Dependente DROP ATTRIBUTE idade_dependente INVALIDATE;
+
+-- 16. Uso de referência e controle de integridade referencial - Alex
+DROP TABLE TB_Dependente;
+
+CREATE TABLE TB_Dependente OF TP_Dependente(
+	PRIMARY KEY(cpf_dependente, cpf_titular),
+	ref_cpf_titular WITH ROWID REFERENCES TB_Cliente
+);
+
+-- 17. Restrição de escopo de referência - Alex
+CREATE TABLE TB_Livro2 of TP_Livro(
+	PRIMARY KEY (id_livro),
+	ref_cnpj SCOPE IS  TB_Editora
+);
+
 -- 18. Criação de todas as tabela a partir de um tipo
+-- Ver script de criação de tipos
 
 -- 19. Criação de uma consulta com expressão de caminho parapercorrer três tabelas - ADRIANO
 -- não possuímos 3 tabelas aninhados com ref então usamos apenas 2
@@ -98,7 +142,9 @@ SELECT DEREF(l.ref_cnpj) from TB_Livro l where ((l.nome like 'Li%') and (l.id_li
 -- 21. Criação de uma consulta com VALUE - ADRIANO
 SELECT VALUE(D) from TB_Dependente D;
 
--- 22. Criação de uma consulta com TABLE
+-- 22. Criação de uma consulta com TABLE e 26. Criação de uma consulta que exiba os dados de um NESTED TABLE - Alex
+SELECT e.nome, e.cnpj FROM TB_Editora e, TABLE(e.telefone_editora) t;
+
 -- 23. Criação de consultas com  GROUP BY HAVING - Adriano
 select x.valor from TB_Compra x where x.cpf_compra_empregado = '000000000' GROUP BY x.valor having x.valor > 1; 
 
@@ -115,11 +161,56 @@ select d.nome_dependente, d.redes_sociais from TB_Dependente d;
 -- 26. Criação de uma consulta que exiba os dados de um NESTED TABLE - Adriano
 select nome,telefone_editora from TB_editora;
 
--- 27. SELECT para acessar os dados de uma tabela A utilizando uma tabela B dentro da cláusula EXISTS, onde a tabela A tem uma referencia para a tabela B.
--- 28. Criação de TRIGGER de linha ao ocorrer um INSERT, DELETE ou UPDATE
--- 29. Criação de TRIGGER de linha para impedir INSERT, DELETE ou UPDATE
--- 30. Criação de TRIGGER de comando para impedir INSERT, DELETE ou UPDATE
+-- 27. SELECT para acessar os dados de uma tabela A utilizando uma tabela B dentro da cláusula EXISTS, onde a tabela A tem uma referencia para a tabela B. - Alex
+SELECT D.nome from TB_Empregado D WHERE EXISTS (SELECT * FROM TB_Compra C WHERE C.id_compra_livro = 0200);
+
+-- 28. Criação de TRIGGER de linha ao ocorrer um INSERT, DELETE ou UPDATE - Alex
+CREATE OR REPLACE TRIGGER verifica
+BEFORE INSERT ON TB_Cliente
+FOR EACH ROW
+DECLARE
+	cont NUMBER;
+BEGIN
+	SELECT COUNT(*) INTO cont FROM TB_Cliente C WHERE C.cpf_cliente = :NEW.cpf_cliente;
+	IF (cont > 0) THEN
+		RAISE_APPLICATION_ERROR(-20020, 'Cliente ja cadastrado');
+	END IF;
+END verifica;
+/
+--Execução do trigger
+INSERT INTO TB_Cliente VALUES ('Cliente 10', TP_End('12345','RUA F'),TP_Tel(TP_Fone ('900006666')),'555555555',to_date ('04/01/2012', 'dd/mm/yyyy'));
+
+
+-- 29. Criação de TRIGGER de linha para impedir INSERT, DELETE ou UPDATE - Alex
+Create OR REPLACE TRIGGER impedir
+BEFORE UPDATE ON TB_Empregado
+FOR EACH ROW
+WHEN (NEW.salario > Old.salario * 2)
+BEGIN
+	RAISE_APPLICATION_ERROR(-20017, 'Novo salario nao pode ser maior que o dobro');
+END impedir;
+/
+
+--Execução do trigger
+UPDATE TB_Empregado SET salario = 10000000;
+
+-- 30. Criação de TRIGGER de comando para impedir INSERT, DELETE ou UPDATE - Alex
+CREATE OR REPLACE TRIGGER naoDelete
+BEFORE DELETE ON TB_Cliente
+DECLARE
+auxDelete NUMBER;
+BEGIN
+SELECT COUNT(*) INTO auxDelete from TB_Cliente;
+IF auxDelete = 1 THEN
+RAISE_APPLICATION_ERROR(-20324,'Nao pode deletar pois a tabela tem apenas uma linha');
+  	END IF;
+END naoDelete;
+/
+
+--Execução do trigger
+delete from TB_Cliente where cpf_cliente = '888888888';
+
 
 
 ---------------- FEITAS ------------------------------
--- 1 ,  2 , 3 , 4 , 5 , 11 , 12 , 13 , 19 , 20 , 21 , 23, 24 , 25 , 26
+-- 1 ,  2 , 3 , 4 , 5 , 6 , 7, 8 , 9, 10, 11 , 12 , 13 , 14 , 15 , 16 , 17 , 18 , 19 , 20 , 21 , 22 , 23 , 24 , 25 , 26 , 27 , 28 , 29 , 30
