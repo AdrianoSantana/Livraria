@@ -6,11 +6,11 @@ Site da monitoria: clique [aqui](https://sites.google.com/a/cin.ufpe.br/if685ec/
 ## C++
 - [x] Conectividade
 
-## SQL (OR)
+## SQL (Oracle OR)
 - [x] Criação de Tipos
 - [x] Criação de Tabelas
 - [x] Povoamento do Banco
-- [ ] Consultas
+- [x] Consultas
 
 ## MongoDB
 - [x] Criação de Coleções
